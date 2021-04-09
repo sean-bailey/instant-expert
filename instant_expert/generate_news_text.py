@@ -2,7 +2,7 @@ import newsRipper2 as nr
 import pdfplumber
 import timeout_decorator
 import textract
-
+import os
 
 def geturls(myquery):
     results=nr.searchnews(query=myquery).results
@@ -103,3 +103,11 @@ def loadtext(infilename):
     return textract.process(infilename).decode("utf-8")
     #with open(infilename,'r') as myfile:
     #    return myfile.readlines()
+
+
+def list_files(dir):
+    r = []
+    for root, dirs, files in os.walk(dir):
+        for name in files:
+            r.append(os.path.join(root, name))
+    return r

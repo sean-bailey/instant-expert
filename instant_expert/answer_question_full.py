@@ -5,5 +5,10 @@ def getquestionanswered(question,context,model="bert-large-uncased"):
     reader=DocumentReader(model)
     reader.tokenize(question,context)
     answers=reader.get_answer().replace('/','')
+    return answers
+    #summarizer=pipeline("summarization")
+    #return summarizer(answers,min_length=len(answers.split(' '))//7,max_length=len(answers.split(' '))//3)
+
+def getquestionsummarized(answers):
     summarizer=pipeline("summarization")
     return summarizer(answers,min_length=len(answers.split(' '))//7,max_length=len(answers.split(' '))//3)

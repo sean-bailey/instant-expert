@@ -2,7 +2,7 @@ from instant_expert.generate_news_text import *
 from instant_expert.answer_question_full import *
 import os
 
-
+acceptable_file_extensions=['csv', 'doc', 'docx', 'eml', 'epub', 'gif', 'htm', 'html', 'jpeg', 'jpg', 'json', 'log', 'mp3', 'msg', 'odt', 'ogg', 'pdf', 'png', 'pptx', 'ps', 'psv', 'rtf', 'tff', 'tif', 'tiff', 'tsv', 'txt', "wav", "xls", "xlsx"]
 
 class resarchtopic:
 
@@ -42,8 +42,14 @@ class answer:
                 if self.fromfile is not None:
                     temptext=""
                     if os.path.isdir(fromfile):
-                        for filename in os.listdir(fromfile):
-                            temptext+=loadtext(filename)
+                        filelist=list_files(fromfile)
+                        for filename in filelist:
+                            try:
+                                if str(filename).split('.')[-1] in acceptable_file_extensions:
+                                    temptext+=loadtext(filename)
+                            except Exception as e:
+                                print(filename)
+                                print(e)
                     else:
                         temptext=loadtext(fromfile)
                 self.context+=temptext
@@ -52,16 +58,23 @@ class answer:
                 if self.fromfile is not None:
                     temptext = ""
                     if os.path.isdir(fromfile):
-                        for filename in os.listdir(fromfile):
-                            temptext += loadtext(filename)
+                        filelist = list_files(fromfile)
+                        for filename in filelist:
+                            try:
+                                if str(filename).split('.')[-1] in acceptable_file_extensions:
+                                    temptext += loadtext(filename)
+                            except Exception as e:
+                                print(filename)
+                                print(e)
                     else:
                         temptext = loadtext(fromfile)
                     self.context=temptext
                 else:
-                    raise ValueError("Incorrect usage. You must specify context or the file to load the context from.")
-            self.answer = getquestionanswered(self.question, self.context, self.model)
+                    raise ValueError("Incorrect usage. You must specify context or the file to load the context from")
+            self.answersum=getquestionanswered(self.question, self.context, self.model)
+            self.answer = getquestionsummarized(self.answersum)
         else:
-            raise ValueError("Incorrect usage. You must specify a question.")
+            raise ValueError("Incorrect usage. You must specify a question")
 
 
 

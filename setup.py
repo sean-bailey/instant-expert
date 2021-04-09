@@ -24,7 +24,9 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/sean-bailey/instant-expert",
     keywords = keywords,
-    install_requires=['torch','transformers','collections','pdfplumber','textract','timeout_decorator','newsRipper2 @ git+ssh://git@github.com/sean-bailey/newsripper2.git'],
+    install_requires=['torch', 'transformers', 'pdfplumber', 'textract', 'timeout_decorator',
+                      'newsRipper2 @ git+ssh://git@github.com/sean-bailey/newsripper2.git'],
+
     packages = setuptools.find_packages(),
     classifiers=['Development Status :: 4 - Beta',
               'Intended Audience :: End Users/Desktop',
