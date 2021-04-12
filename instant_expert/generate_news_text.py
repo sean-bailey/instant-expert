@@ -15,7 +15,7 @@ def geturls(myquery):
     return myurls
 
 @timeout_decorator.timeout(6)
-def getnews(url):
+def getparsednews(url):
     return nr.parsenews(url)
 
 @timeout_decorator.timeout(30)
@@ -32,7 +32,7 @@ def savenews(myurls,outfilename):
     for url in myurls:
         #print(url)
         try:
-            news=getnews(url)
+            news=getparsednews(url)
             counter+=1
             if news.date_publish is not None or news.article is not None:
                 article=news.article
@@ -62,7 +62,7 @@ def getnews(myurls):
     for url in myurls:
         #print(url)
         try:
-            news=getnews(url)
+            news=getparsednews(url)
             counter+=1
             if news.date_publish is not None or news.article is not None:
                 article=news.article

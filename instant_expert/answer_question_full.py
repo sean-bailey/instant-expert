@@ -9,6 +9,7 @@ def getquestionanswered(question,context,model="bert-large-uncased"):
     #summarizer=pipeline("summarization")
     #return summarizer(answers,min_length=len(answers.split(' '))//7,max_length=len(answers.split(' '))//3)
 
+
 def getquestionsummarized(answers):
     summarizer=pipeline("summarization")
     return summarizer(answers,min_length=len(answers.split(' '))//7,max_length=len(answers.split(' '))//3)
