@@ -1,6 +1,6 @@
 import newsRipper2 as nr
 import pdfplumber
-import timeout_decorator
+from wrapt_timeout_decorator import *
 import textract
 import os
 
@@ -14,12 +14,13 @@ def geturls(myquery):
     myurls=list(returndict.keys())
     return myurls
 
-@timeout_decorator.timeout(6)
+@timeout(6)
 def getparsednews(url):
     return nr.parsenews(url)
 
-@timeout_decorator.timeout(30)
+@timeout(30)
 def getpdf(url):
+    #print("url contains pdf, more time for processing required...")
     text=""
     with pdfplumber.open(url) as pdf:
         for page in pdf.pages:
@@ -28,16 +29,15 @@ def getpdf(url):
 
 
 def savenews(myurls,outfilename):
-    counter = 0
-    for url in myurls:
+    urlcounter=len(myurls)
+    for count, url in enumerate(myurls):
         #print(url)
         try:
             news=getparsednews(url)
-            counter+=1
             if news.date_publish is not None or news.article is not None:
                 article=news.article
                 summary=news.summary
-                print(str(counter)+"/"+str(len(myurls)))
+                print(str(count)+"/"+str(urlcounter))
                 with open(outfilename,'a') as myfile:
                     myfile.write(article)
                     myfile.write('\n')
@@ -59,14 +59,14 @@ def savenews(myurls,outfilename):
 def getnews(myurls):
     counter = 0
     returnstring=""
-    for url in myurls:
+    urlcounter = len(myurls)
+    for count, url in enumerate(myurls):
         #print(url)
         try:
             news=getparsednews(url)
-            counter+=1
             if news.date_publish is not None or news.article is not None:
                 article=news.article
-                print(str(counter)+"/"+str(len(myurls)))
+                print(str(count)+"/"+str(urlcounter))
                 returnstring+=article+'\n'+'\n'
             elif str(url).split('.')[-1] == '.pdf':
                 returnstring+=getpdf(url)+"\n"+"\n"
@@ -75,13 +75,11 @@ def getnews(myurls):
     return returnstring
 
 def getraw(myurls):
-    counter=0
     returnstring=""
-    for url in myurls:
+    for count, url in enumerate(myurls):
         try:
             rawtext = nr.rawnews(url).results
-            counter += 1
-            print(str(counter) + "/" + str(len(myurls)))
+            print(str(count) + "/" + str(len(myurls)))
             returnstring+=rawtext+"\n"+"\n"
 
         except Exception as e:

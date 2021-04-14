@@ -16,7 +16,7 @@ keywords = [ "google_scraper", 'news_scraper', 'bs4',
 
 setuptools.setup(
     name="instant-expert",
-    version="0.1",
+    version="0.1.2",
     author="Sean Bailey",
     author_email="seanbailey518@gmail.com",
     description="newsripper provides a simple python library which scrapes relevant keyword information from news sites using search engines",
@@ -24,8 +24,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/sean-bailey/instant-expert",
     keywords = keywords,
-    install_requires=['torch', 'transformers', 'pdfplumber', 'textract', 'timeout_decorator',
-                      'newsRipper2 @ git+ssh://git@github.com/sean-bailey/newsripper2.git'],
+    install_requires=['torch', 'transformers', 'pdfplumber', 'textract',
+                      'newsRipper2 @ git+ssh://git@github.com/sean-bailey/newsripper2.git','wrapt_timeout_decorator'],
 
     packages = setuptools.find_packages(),
     classifiers=['Development Status :: 4 - Beta',
