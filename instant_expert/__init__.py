@@ -38,8 +38,9 @@ class answer:
         self.model=model
         self.answer=""
         if self.context is not None:
+            temptext = ""
             if self.fromfile is not None:
-                temptext = ""
+
                 if os.path.isdir(fromfile):
                     filelist = list_files(fromfile)
                     for filename in filelist:

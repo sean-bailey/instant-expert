@@ -16,7 +16,7 @@ keywords = [ "google_scraper", 'news_scraper', 'bs4',
 
 setuptools.setup(
     name="instant-expert",
-    version="0.1.3",
+    version="0.1.4",
     author="Sean Bailey",
     author_email="seanbailey518@gmail.com",
     description="newsripper provides a simple python library which scrapes relevant keyword information from news sites using search engines",
