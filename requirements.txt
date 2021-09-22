@@ -1,0 +1,5 @@
+torch
+transformers
+pdfplumber
+textract
+wrapt_timeout_decorator
